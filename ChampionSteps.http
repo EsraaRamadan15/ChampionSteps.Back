@@ -1,0 +1,6 @@
+@ChampionSteps_HostAddress = http://localhost:5076
+
+GET {{ChampionSteps_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
