@@ -1,4 +1,5 @@
 using ChampionSteps.Data.Context;
+using ChampionSteps.Endpoints;
 using ChampionSteps.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,39 +25,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// CRUD
-app.MapGet("/api/todos", async (AppDbContext db) =>
-    await db.TodoItems.AsNoTracking().ToListAsync());
-
-app.MapGet("/api/todos/{id:int}", async (int id, AppDbContext db) =>
-    await db.TodoItems.FindAsync(id) is { } todo ? Results.Ok(todo) : Results.NotFound());
-
-app.MapPost("/api/todos", async (TodoItem input, AppDbContext db) =>
-{
-    db.TodoItems.Add(input);
-    await db.SaveChangesAsync();
-    return Results.Created($"/api/todos/{input.Id}", input);
-});
-
-app.MapPut("/api/todos/{id:int}", async (int id, TodoItem input, AppDbContext db) =>
-{
-    var todo = await db.TodoItems.FindAsync(id);
-    if (todo is null) return Results.NotFound();
-
-    todo.Title = input.Title;
-    todo.IsDone = input.IsDone;
-    await db.SaveChangesAsync();
-    return Results.NoContent();
-});
-
-app.MapDelete("/api/todos/{id:int}", async (int id, AppDbContext db) =>
-{
-    var todo = await db.TodoItems.FindAsync(id);
-    if (todo is null) return Results.NotFound();
-
-    db.TodoItems.Remove(todo);
-    await db.SaveChangesAsync();
-    return Results.NoContent();
-});
+app.MapTodoEndpoints();
+app.MapContactEndpoints();
 
 app.Run();
