@@ -1,4 +1,4 @@
-using ChampionSteps.Data.Context;
+﻿using ChampionSteps.Data.Context;
 using ChampionSteps.Endpoints;
 using ChampionSteps.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,18 @@ builder.Services.AddSwaggerGen();
 // SQLite (local file)
 var cs = builder.Configuration.GetConnectionString("Default") ?? "Data Source=app.db";
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(cs));
+// ✅ CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("frontend", policy =>
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "https://khatwat-batl.vercel.app/" // add your deployed frontend later
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+    );
+});
 
 var app = builder.Build();
 
