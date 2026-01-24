@@ -244,7 +244,6 @@ namespace ChampionSteps.Endpoints
 
             return app;
         }
-
         static string NormalizeKind(string? kind)
         {
             var k = (kind ?? "other").Trim().ToLowerInvariant();
