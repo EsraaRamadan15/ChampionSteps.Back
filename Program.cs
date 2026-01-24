@@ -38,7 +38,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 // ✅ must be before MapGet/MapPost...
 app.UseCors("frontend");
-app.MapTodoEndpoints();
+//app.MapTodoEndpoints();
 app.MapContactEndpoints();
+app.MapToStoriespoints();
 
 app.Run();
