@@ -58,7 +58,6 @@ namespace ChampionSteps.Endpoints
                     ))
                     .ToListAsync();
 
-
                 return Results.Ok(new { total, page, pageSize, items });
             });
 
