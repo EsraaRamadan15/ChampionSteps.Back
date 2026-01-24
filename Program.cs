@@ -18,12 +18,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("frontend", policy =>
         policy.WithOrigins(
                 "http://localhost:4200",
-                "https://khatwat-batl.vercel.app/" // add your deployed frontend later
+                "https://khatwat-batl.vercel.app"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
     );
 });
+
 
 var app = builder.Build();
 
