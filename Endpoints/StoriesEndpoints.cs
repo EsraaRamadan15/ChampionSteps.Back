@@ -1,6 +1,7 @@
 ﻿using ChampionSteps.Data.Context;
 using ChampionSteps.Models.Stories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ChampionSteps.Endpoints
 {
@@ -47,24 +48,16 @@ namespace ChampionSteps.Endpoints
                     .OrderByDescending(s => s.CreatedAtUtc)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(s => new
-                    {
-                        s.Id,
+                    .Select(s => new StoryDto(
+                        s.Id.ToString(),
                         s.Title,
-                        s.Country,
                         s.Domain,
                         s.PersonName,
                         s.Highlight,
-                        s.TagsCsv,
-                        s.CoverImageUrl,  // ✅
-                        s.SourceType,
-                        s.Visibility,
-                        s.CreatedAtUtc,
-                        Media = s.Media
-                            .OrderBy(m => m.Order)
-                            .Select(m => new { m.Kind, m.Title, m.Url, m.Order })
-                    })
+                        s.CoverImageUrl
+                    ))
                     .ToListAsync();
+
 
                 return Results.Ok(new { total, page, pageSize, items });
             });

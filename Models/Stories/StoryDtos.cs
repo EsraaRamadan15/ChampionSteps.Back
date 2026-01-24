@@ -10,6 +10,18 @@ namespace ChampionSteps.Models.Stories
         int Order = 0
     );
 
+
+
+    public record StoryDto
+(
+        string Id,
+   string Title,
+
+     string Domain,
+ string PersonName,
+    string? Highlight,
+    string? CoverImageUrl         // ✅ صورة أساسية
+);
     public record StoryCreateDto
     (
         [Required, MaxLength(200)] string Title,
