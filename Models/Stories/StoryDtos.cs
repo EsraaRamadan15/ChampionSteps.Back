@@ -10,8 +10,6 @@ namespace ChampionSteps.Models.Stories
         int Order = 0
     );
 
-
-
     public record StoryDto
 (
         string Id,
